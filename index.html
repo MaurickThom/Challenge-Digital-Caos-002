@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | [File Transfer pricing component]</title>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root{
+      --bg-body: hsl(240, 78%, 98%);
+      --pricing-table-color : hsl(233, 13%, 49%);
+    }
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      min-height: 100vh;
+      display: flex;
+      overflow-x: hidden;
+      flex-direction: column;
+      background-image: url(./images/bg-top.svg);
+      background-repeat: no-repeat;
+      background-position: 170px -50px;
+      background-attachment: fixed;
+      text-align: center;
+      background-position: 170px -50px;
+    }
+
+    @media screen and (min-width:400px) {
+      body{
+        background-position: 250px -50px;
+      }
+    }
+    li{
+      list-style: none;
+    }
+    a{
+      text-decoration: none;
+    }
+    @media screen and (min-width:550px) {
+      body{
+        background-image:
+          url(./images/bg-bottom.svg),
+          url(./images/bg-top.svg);
+        background-repeat:
+          no-repeat,
+          no-repeat;
+        background-position:
+          bottom left,
+          top right;
+        background-attachment: fixed;
+      }
+    }
+    .pricing-table-container{
+      max-width: 1020px;
+      margin: 1em auto;
+      width: 85%;
+    }
+    .pricing-table-container__title{
+      color : var(--pricing-table-color);
+      font-size: 1.5em;
+      font-weight: 700;
+      padding: 2rem;
+    }
+
+    .checkbox {
+      display: none;
+    }
+    .switch {
+      display: block;
+      width: 60px;
+      height: 34px;
+      position: relative;
+      box-sizing: border-box;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      margin-left: 1em;
+      margin-right: 1em;
+    }
+    .selection-container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    .pricing__type{
+      font-size: .9em;
+      font-weight: 700;
+      color: hsl(233, 13%, 49%);
+    }
+    .slider{
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: hsl(236, 72%, 79%);
+      transition: .4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+    .inputcheck:checked + .slider {
+      background: hsl(237, 63%, 64%);
+    }
+    .checkbox:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .slider.round {
+      border-radius: 34px;
+    }
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    .pricing-card{
+      padding:1rem;
+      background-color:white;
+      margin-bottom: 2em;
+      border-radius: 10px;
+      transition: all .2s linear;
+
+    }
+    .pricing-card:hover {
+      transform: scale(1.05);
+    }
+    @media screen and (min-width:500px){
+      .pricing-card{
+        margin:auto;
+        margin-bottom: 2em;
+        max-width: 350px;
+      }
+      .pricing-card:nth-child(2){
+        z-index: 2;
+        transform: scale(1.09);
+      }
+      .pricing-card:nth-child(2):hover{
+        transform: scale(1.15);
+      }
+
+    }
+    .pricing-card__title{
+      font-size: 1rem;
+      color: hsl(233, 13%, 49%);
+    }
+    .princing-card__header{
+      padding:1em;
+    }
+    .pricing-card__cost{
+      font-size: 3rem;
+      margin-top: .2em;
+      color: hsl(232, 13%, 33%);
+    }
+    .pricing-card__features-container{
+      width: 100%;
+    }
+    .pricing-card__features{
+      margin: auto;
+      width: 80%;
+    }
+    .pricing-table__feature{
+      padding:.9rem;
+      border-top: 1px solid hsl(234, 14%,80%);
+      color:hsl(233, 13%, 49%);
+      font-size: .7em;
+    }
+    .pricing-table__feature:last-child{
+      border-bottom: 1px solid hsl(234,14%,80%);
+    }
+    .pricing-card__footer{
+      margin-top: 1.2em;
+      width: 100%;
+
+    }
+    .pricing-action__button{
+      width: 90%;
+      display: block;
+      margin:auto;
+      border: .1rem solid hsl(234, 14%, 74%);
+      border-radius: 5px;
+      background-image: linear-gradient(to left, hsl(240, 4%, 48%),hsl(237, 63%, 64%));
+      color: white;
+      padding:.8em;
+      cursor: pointer;
+      font-size: .7em;
+    }
+    .pricing-card--profesional{
+      background-image: linear-gradient(to top, hsl(240, 4%, 48%),hsl(237, 63%, 64%));
+    }
+    .princing-card__title--profesinal,
+    .princing-card__cost--profesinal,
+    .princing-card__features--profesinal{
+      color:white;
+    }
+    @media screen and (min-width:800px){
+      .pricing-card{
+        margin-bottom: 0;
+        flex: 1;
+      }
+      .pricing-cards{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+    }
+    .white{
+      color: white;
+    }
+    .pricing-action__button--profesional{
+      background: white;
+      color:hsl(237, 63%, 64%);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pricing-table-container">
+    <header class="pricing-table-container__header">
+      <h2 class="pricing-table-container__title">Our Pricing</h2>
+      <div class="selection-container">
+        <h3 class="pricing__type" >Annually</h3>
+        <label class="switch">
+          <input class="checkbox" type="checkbox">
+          <span class="slider round"></span>
+      </label>
+        <h3 class="pricing__type" >Monthly</h3>
+      </div>
+    </header>
+    <section class="pricing-cards">
+      <article class="pricing-card">
+        <header class="princing-card__header">
+          <p class="pricing-card__title">Basic</p>
+          <h1 class="pricing-card__cost">$199.99</h1>
+        </header>
+        <div class="pricing-card__features-container">
+          <ul class="pricing-card__features">
+            <li class="pricing-table__feature">500 GB Storage</li>
+            <li class="pricing-table__feature">2 Users Allowed</li>
+            <li class="pricing-table__feature">Send up to 3 GB</li>
+          </ul>
+        </div>
+        <footer class="pricing-card__footer">
+          <a href="#" class="pricing-action__button">LEARN MORE</a>
+        </footer>
+      </article>
+      <article class="pricing-card pricing-card--profesional">
+        <header class="princing-card__header">
+          <p class="pricing-card__title princing-card__title--profesinal">Profesional</p>
+          <h1 class="pricing-card__cost princing-card__cost--profesinal">$249.99</h1>
+        </header>
+        <div class="pricing-card__features-container">
+          <ul class="pricing-card__features">
+            <li class="pricing-table__feature white">1TB Storage</li>
+            <li class="pricing-table__feature white">5 Users Allowed</li>
+            <li class="pricing-table__feature white">Send up to 10 GB</li>
+          </ul>
+        </div>
+        <footer class="pricing-card__footer">
+          <a href="#" class="pricing-action__button pricing-action__button--profesional">LEARN MORE</a>
+        </footer>
+      </article>
+      <article class="pricing-card">
+        <header class="princing-card__header">
+          <p class="pricing-card__title">Master</p>
+          <h1 class="pricing-card__cost">$399.99</h1>
+        </header>
+        <div class="pricing-card__features-container">
+          <ul class="pricing-card__features">
+            <li class="pricing-table__feature">2TB Storage</li>
+            <li class="pricing-table__feature">10 Users Allowed</li>
+            <li class="pricing-table__feature">Send up to 20 GB</li>
+          </ul>
+        </div>
+        <footer class="pricing-card__footer">
+          <a href="#" class="pricing-action__button">LEARN MORE</a>
+        </footer>
+      </article>
+    </section>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>
